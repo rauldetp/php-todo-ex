@@ -4,14 +4,14 @@
 // accessing the application at "http://localhost:8888/php-todo-ex/", then
 // BASE_URL should be "/php-todo-ex/". If you are accessing the application at
 // "http://localhost:8888", then BASE_URL should be "/".
-define('BASE_URL', '/');
+define('BASE_URL', '/php-todo-ex/');
 
 // Database connection parameters.
 define('DB_USER', 'todolist');
-define('DB_PASS', 'change-me-now');
+define('DB_PASS', 'raulpierre');
 define('DB_NAME', 'todolist');
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '3306');
+define('DB_HOST', 'localhost');
+define('DB_PORT', '8889');
 
 $db = new PDO('mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME, DB_USER, DB_PASS);
 $items = array();
@@ -43,7 +43,7 @@ if (isset($_POST['action'])) {
 
       $id = $_POST['id'];
       if(is_numeric($id)) {
-        $updateQuery = ''; // IMPLEMENT ME
+        $updateQuery = 'UPDATE todo SET done = NOT done WHERE id = ' . (int)$id; // IMPLEMENT ME
         if(!$db->query($updateQuery)) {
           die(print_r($db->errorInfo(), true));
         }
@@ -118,7 +118,7 @@ $items = $db->query($selectQuery);
 
         <div class='form-group'>
           <label for='task-title' class='sr-only'>Title</label>
-          <input id='task-title' class='form-control' name='title' type='text' placeholder='Task Title' maxlength='1000' required />
+          <input id='task-title' class='form-control' name='title' type='text' placeholder='Task Title'>
         </div>
 
         <button type='submit' class='btn btn-primary ml-2'>Add</button>
